@@ -83,7 +83,7 @@ Cloud_Project_Assignment/ <br/>
 
 ## Installation
 
-```bash ```
+```bash ``` <br/>
 git clone https://github.com/aimenbagh/Cloud_Project_Assignment.git <br/>
 cd Cloud_Project_Assignment  
 
