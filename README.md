@@ -53,27 +53,25 @@ This web application was developed as a midterm assignment for the Higher Instit
 
 ## Technical Implementation
 
-|------------------|-------------------------|
 | Component        | Technology Used         |
 |------------------|-------------------------|
 | Frontend         | HTML5, CSS3, JavaScript |
 | Hosting          | Apache HTTP Server      |
 | Containerization | Docker                  |
 | Version Control  | Git/GitHub              |
-|------------------|-------------------------|
 
 ## Project Structure
 
-Cloud_Project_Assignment/
-├── index.html         # Main application entry point
-├── css/
-│   └── styles.css     # All styling rules and variables
-├── js/
-│   └── script.js      # Core application logic
-├── img/               # Asset directory
-│   ├── logo-his.png   # Primary logo
-│   └── logo-his1.png  # Favicon
-└── README.md          # Documentation
+Cloud_Project_Assignment/ <br/>
+├── index.html         # Main application entry point <br/>
+├── css/ <br/>
+│   └── styles.css     # All styling rules and variables <br/>
+├── js/ <br/>
+│   └── script.js      # Core application logic <br/>
+├── img/               # Asset directory <br/>
+│   ├── logo-his.png   # Primary logo <br/>
+│   └── logo-his1.png  # Favicon <br/>
+└── README.md          # Documentation <br/>
 
 ## Running the Application with Apache http
 
@@ -86,7 +84,7 @@ Cloud_Project_Assignment/
 ## Installation
 
 ```bash ```
-git clone https://github.com/aimenbagh/Cloud_Project_Assignment.git
+git clone https://github.com/aimenbagh/Cloud_Project_Assignment.git <br/>
 cd Cloud_Project_Assignment  
 
 ## Usage
