@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabbed Menu Application</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="shortcut icon" href="img/logo-his1.png">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <img src="img/logo-his.png" alt="Institute Logo">
+            </a>
+            <div class="header-text">
+                <h2>Project Assignment</h2>
+                <p>Tabbed Menu Web Application</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab active" data-tab="tab1">Tab-1</button>
+            <button class="tab" data-tab="tab2">Tab-2</button>
+            <button class="tab" data-tab="tab3">Tab-3</button>
+            <button class="tab" data-tab="tab4">Tab-4</button>
+        </div>
+        
+        <!-- Single menu container that will be reused -->
+        <div id="menu-container" class="menu-container">
+            <!-- Menu content will be loaded here -->
+        </div>
+    </div>
+
+    <div id="api-endpoint" class="api-endpoint">
+        The REST API endpoint for menu item <span id="menu-item-name"></span> is called <code id="endpoint"></code>
+    </div>
+
+    <footer class="api-footer">
+        <div class="footer-credits">
+            <h4>Created by <span>Baghdadi Nadjib Aimen</span> && <span>Elouchdi Imene Maria</span></h4>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
