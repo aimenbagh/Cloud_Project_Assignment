@@ -36,7 +36,7 @@ body {
     padding: 0;
     background-color: var(--bg-light);
     margin-bottom: 120px;
-    overflow-y: hidden; /* Hide vertical scrollbar */
+    /*overflow-y: hidden;  Hide vertical scrollbar 
     overflow-x: hidden; /* Hide horizontal scrollbar */
 }
 
@@ -59,9 +59,9 @@ body {
 }
 
 .header-content .logo img {
-    position: fixed;
+    /* position: fixed;
     top: 10px;
-    left: 10px;
+    left: 10px; */
     height: 7rem;
 }
 
