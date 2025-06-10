@@ -1,76 +1,96 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Configuration
+    // =========================
+    // Configuration de l'application
+    // =========================
     const CONFIG = {
-        simulatedDelay: 1500, // milliseconds
+        simulatedDelay: 1500, // Délai simulé pour l'appel API (en millisecondes)
         menuItems: {
-            tab1: 3, // Tab 1 will have 3 menu items
-            tab2: 4, // Tab 2 will have 4 menu items
-            tab3: 2, // Tab 3 will have 2 menu items
-            tab4: 5  // Tab 4 will have 5 menu items
+            tab1: 3, // Tab 1 aura 3 éléments de menu
+            tab2: 4, // Tab 2 aura 4 éléments de menu
+            tab3: 2, // Tab 3 aura 2 éléments de menu
+            tab4: 5  // Tab 4 aura 5 éléments de menu
         }
     };
 
-    // DOM Elements
+    // =========================
+    // Sélection des éléments du DOM
+    // =========================
     const elements = {
-        menuContainer: document.getElementById('menu-container'),
-        apiDisplay: document.getElementById('api-endpoint'),
-        menuItemName: document.getElementById('menu-item-name'),
-        endpoint: document.getElementById('endpoint'),
-        tabs: document.querySelectorAll('.tab')
+        menuContainer: document.getElementById('menu-container'), // Conteneur du menu
+        apiDisplay: document.getElementById('api-endpoint'),      // Affichage de l'API
+        menuItemName: document.getElementById('menu-item-name'),  // Nom de l'élément sélectionné
+        endpoint: document.getElementById('endpoint'),            // Endpoint affiché
+        tabs: document.querySelectorAll('.tab')                   // Tous les onglets
     };
 
-    // State
+    // =========================
+    // État de l'application
+    // =========================
     const state = {
-        currentActiveTab: null,
-        isMenuVisible: false
+        currentActiveTab: null, // Onglet actuellement actif
+        isMenuVisible: false    // Visibilité du menu
     };
     
-    // Initialize the application
+    // =========================
+    // Initialisation de l'application
+    // =========================
     function init() {
-        setupEventListeners();
-        activateTab(document.querySelector('.tab.active'));
+        setupEventListeners(); // Mise en place des écouteurs d'événements
+        activateTab(document.querySelector('.tab.active')); // Activer l'onglet par défaut
     }
 
-    // Set up event listeners
+    // =========================
+    // Mise en place des écouteurs d'événements sur les onglets
+    // =========================
     function setupEventListeners() {
         elements.tabs.forEach(tab => {
             tab.addEventListener('click', handleTabClick);
         });
     }
 
-    // Handle tab clicks
+    // =========================
+    // Gestion du clic sur un onglet
+    // =========================
     function handleTabClick() {
         const tabId = this.getAttribute('data-tab');
         
         if (tabId === state.currentActiveTab) {
+            // Si on clique sur l'onglet déjà actif, on affiche/masque le menu
             toggleMenuVisibility();
         } else {
+            // Sinon, on active le nouvel onglet
             activateTab(this);
         }
     }
 
-    // Activate a tab
+    // =========================
+    // Activation d'un onglet
+    // =========================
     function activateTab(tab) {
         const tabId = tab.getAttribute('data-tab');
         
-        // Update UI
+        // Mettre à jour l'UI
         updateActiveTab(tab);
         
-        // Update state
+        // Mettre à jour l'état
         state.currentActiveTab = tabId;
         state.isMenuVisible = true;
         
-        // Load menu
+        // Charger le menu correspondant à l'onglet
         loadTabMenu(tabId);
     }
 
-    // Update active tab styling
+    // =========================
+    // Mise à jour du style de l'onglet actif
+    // =========================
     function updateActiveTab(activeTab) {
         elements.tabs.forEach(tab => tab.classList.remove('active'));
         activeTab.classList.add('active');
     }
 
-    // Toggle menu visibility
+    // =========================
+    // Afficher ou masquer le menu
+    // =========================
     function toggleMenuVisibility() {
         state.isMenuVisible = !state.isMenuVisible;
         const menu = elements.menuContainer.querySelector('.menu');
@@ -83,7 +103,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Animate menu appearance
+    // =========================
+    // Animation d'apparition du menu
+    // =========================
     function animateMenu(menu) {
         menu.classList.add('fade-animation');
         setTimeout(() => {
@@ -91,27 +113,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 300);
     }
 
-    // Load menu for a specific tab
+    // =========================
+    // Charger le menu pour un onglet donné
+    // =========================
     function loadTabMenu(tabId) {
-        // Clear existing menu
+        // Vider le menu existant
         elements.menuContainer.innerHTML = '';
         
-        // Create new menu container
+        // Créer un nouveau conteneur de menu
         const menu = document.createElement('div');
         menu.className = 'menu';
         
-        // Generate and add menu items
+        // Générer et ajouter les éléments de menu
         const itemCount = CONFIG.menuItems[tabId];
         for (let i = 1; i <= itemCount; i++) {
             const menuItem = createMenuItem(tabId.replace('tab', ''), i);
             menu.appendChild(menuItem);
         }
         
-        // Add menu to container
+        // Ajouter le menu au conteneur
         elements.menuContainer.appendChild(menu);
     }
 
-    // Create a menu item button
+    // =========================
+    // Créer un bouton pour un élément de menu
+    // =========================
     function createMenuItem(tabNumber, itemNumber) {
         const itemName = `Menu Item ${tabNumber}-${itemNumber}`;
         const endpoint = `/api/menu/item${tabNumber}-${itemNumber}`;
@@ -121,6 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
         button.textContent = itemName;
         button.setAttribute('data-endpoint', endpoint);
         
+        // Gestion du clic sur un élément de menu
         button.addEventListener('click', (e) => {
             e.stopPropagation();
             handleMenuItemClick(button, itemName, endpoint);
@@ -129,19 +156,23 @@ document.addEventListener('DOMContentLoaded', function() {
         return button;
     }
 
-    // Handle menu item clicks
+    // =========================
+    // Gestion du clic sur un élément de menu
+    // =========================
     function handleMenuItemClick(button, itemName, endpoint) {
-        // Update active button styling
+        // Mettre à jour le style du bouton actif
         updateActiveButton(button);
         
-        // Update API display
+        // Afficher l'appel API
         showApiCallStatus(itemName, endpoint);
         
-        // Simulate API call
+        // Simuler l'appel API
         simulateAPICall(itemName, endpoint);
     }
 
-    // Update active button styling
+    // =========================
+    // Mettre à jour le style du bouton actif
+    // =========================
     function updateActiveButton(activeButton) {
         document.querySelectorAll('.menu-button').forEach(btn => {
             btn.classList.remove('active-button');
@@ -149,22 +180,26 @@ document.addEventListener('DOMContentLoaded', function() {
         activeButton.classList.add('active-button');
     }
 
-    // Show API call status
+    // =========================
+    // Afficher le statut de l'appel API
+    // =========================
     function showApiCallStatus(itemName, endpoint) {
         elements.menuItemName.textContent = itemName;
         elements.endpoint.textContent = endpoint;
         elements.apiDisplay.style.display = 'block';
     }
 
-    // Simulate API call - THIS IS THE FIXED VERSION
+    // =========================
+    // Simuler un appel API (avec délai)
+    // =========================
     function simulateAPICall(itemName, endpoint) {
-        // Show loading state
+        // Afficher l'état de chargement
         elements.apiDisplay.innerHTML = `
             Calling endpoint: <code>${endpoint}</code>
             <span class="loading">(loading...)</span>
         `;
         
-        // Simulate network delay
+        // Simuler un délai réseau
         setTimeout(() => {
             elements.apiDisplay.innerHTML = `
                 API called: <span>${itemName}</span>
@@ -176,6 +211,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }, CONFIG.simulatedDelay);
     }
 
-    // Start the application
+    // =========================
+    // Lancer l'application
+    // =========================
     init();
 });

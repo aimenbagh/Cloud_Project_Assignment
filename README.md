@@ -11,8 +11,14 @@ A responsive tabbed menu web application that simulates REST API calls when menu
   - [Menu Item Counts](#menu-item-counts)
   - [Technical Implementation](#technical-implementation)
   - [Project Structure](#project-structure)
-  - [Running the Application with Apache http](#running-the-application-with-apache-http)
+  - [Running the Application with Apache httpd](#running-the-application-with-apache-httpd)
+    - [Install httpd and start it.](#install-httpd-and-start-it)
+    - [Add current user to www-data group.](#add-current-user-to-www-data-group)
+    - [Copy projet files to `/var/www`.](#copy-projet-files-to-varwww)
+    - [Open http://localhost in browser.](#open-httplocalhost-in-browser)
   - [Docker Deployment](#docker-deployment)
+    - [Build Image](#build-image)
+    - [Run Image](#run-image)
   - [Installation](#installation)
   - [Usage](#usage)
   - [Authors](#authors)
@@ -73,12 +79,24 @@ Cloud_Project_Assignment/ <br/>
 │   └── logo-his1.png  # Favicon <br/>
 └── README.md          # Documentation <br/>
 
-## Running the Application with Apache http
+## Running the Application with Apache httpd
+### Install httpd and start it.
+sudo apt install apache2
+sudo service apache2 start
 
+### Add current user to www-data group.
+sudo usermod -a -G www-data username
+sudo chown -R username:username /var/www
 
+### Copy projet files to `/var/www`.
+
+### Open http://localhost in browser.
 
 ## Docker Deployment
-
+### Build Image
+docker build -t project:1.0 .
+### Run Image
+docker run --name myproject -d -p 80:80 project:1.0
 
 
 ## Installation
