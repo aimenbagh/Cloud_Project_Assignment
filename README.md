@@ -78,7 +78,7 @@ Cloud_Project_Assignment/ <br/>
 │   ├── logo-his.png   # Primary logo <br/>
 │   └── logo-his1.png  # Favicon <br/>
 └── README.md          # Documentation <br/>
-│
+│<br/>
 └── Dockerfile          # Dockerfile <br/>
 
 ## Running the Application with Apache httpd
