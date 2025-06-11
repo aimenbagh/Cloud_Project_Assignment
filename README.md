@@ -77,7 +77,7 @@ Cloud_Project_Assignment/ <br/>
 ├── img/               # Asset directory <br/>
 │   ├── logo-his.png   # Primary logo <br/>
 │   └── logo-his1.png  # Favicon <br/>
-└── README.md          # Documentation <br/>
+├── README.md          # Documentation <br/>
 │<br/>
 └── Dockerfile          # Dockerfile <br/>
 
