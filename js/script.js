@@ -1,111 +1,137 @@
 document.addEventListener('DOMContentLoaded', function() {
     // =========================
-    // Configuration de l'application
+    // Configuration
     // =========================
     const CONFIG = {
-        simulatedDelay: 1500, // Délai simulé pour l'appel API (en millisecondes)
+        simulatedDelay: 1500,
+        errorRate: 0.2,
         menuItems: {
-            tab1: 3, // Tab 1 aura 3 éléments de menu
-            tab2: 4, // Tab 2 aura 4 éléments de menu
-            tab3: 2, // Tab 3 aura 2 éléments de menu
-            tab4: 5  // Tab 4 aura 5 éléments de menu
+            tab1: 3,
+            tab2: 4,
+            tab3: 2,
+            tab4: 5
         }
     };
 
     // =========================
-    // Sélection des éléments du DOM
+    // DOM Elements
     // =========================
     const elements = {
-        menuContainer: document.getElementById('menu-container'), // Conteneur du menu
-        apiDisplay: document.getElementById('api-endpoint'),      // Affichage de l'API
-        menuItemName: document.getElementById('menu-item-name'),  // Nom de l'élément sélectionné
-        endpoint: document.getElementById('endpoint'),            // Endpoint affiché
-        tabs: document.querySelectorAll('.tab')                   // Tous les onglets
+        menuContainer: document.getElementById('menu-container'),
+        apiDisplay: document.getElementById('api-endpoint'),
+        menuItemName: document.getElementById('menu-item-name'),
+        endpoint: document.getElementById('endpoint'),
+        menu: document.getElementById('menu')
     };
 
     // =========================
-    // État de l'application
+    // Application State
     // =========================
     const state = {
-        currentActiveTab: null, // Onglet actuellement actif
-        isMenuVisible: false    // Visibilité du menu
+        currentActiveTab: null,
+        isMenuVisible: false
     };
     
     // =========================
-    // Initialisation de l'application
+    // Initialization
     // =========================
     function init() {
-        setupEventListeners(); // Mise en place des écouteurs d'événements
-        activateTab(document.querySelector('.tab.active')); // Activer l'onglet par défaut
+        setupEventListeners();
+        activateTab(document.querySelector('.tab'));
     }
 
     // =========================
-    // Mise en place des écouteurs d'événements sur les onglets
+    // Event Listeners
     // =========================
     function setupEventListeners() {
-        elements.tabs.forEach(tab => {
-            tab.addEventListener('click', handleTabClick);
+        // Event delegation for tabs
+        elements.menu.addEventListener('click', function(e) {
+            const tab = e.target.closest('[role="tab"]');
+            if (tab) {
+                const tabElement = tab.parentElement;
+                handleTabClick.call(tabElement, e);
+            }
+        });
+
+        // Event delegation for menu items
+        elements.menuContainer.addEventListener('click', function(e) {
+            const button = e.target.closest('.menu-button');
+            if (button) {
+                const itemName = button.textContent;
+                const endpoint = button.getAttribute('data-endpoint');
+                handleMenuItemClick(button, itemName, endpoint);
+            }
+        });
+
+        // Keyboard navigation for tabs
+        elements.menu.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                const tab = e.target.closest('[role="tab"]');
+                if (tab) {
+                    e.preventDefault();
+                    const tabElement = tab.parentElement;
+                    handleTabClick.call(tabElement, e);
+                }
+            }
         });
     }
 
     // =========================
-    // Gestion du clic sur un onglet
+    // Tab Handling
     // =========================
-    function handleTabClick() {
+    function handleTabClick(e) {
+        e.preventDefault();
         const tabId = this.getAttribute('data-tab');
         
         if (tabId === state.currentActiveTab) {
-            // Si on clique sur l'onglet déjà actif, on affiche/masque le menu
             toggleMenuVisibility();
         } else {
-            // Sinon, on active le nouvel onglet
             activateTab(this);
         }
     }
 
-    // =========================
-    // Activation d'un onglet
-    // =========================
     function activateTab(tab) {
         const tabId = tab.getAttribute('data-tab');
         
-        // Mettre à jour l'UI
         updateActiveTab(tab);
+        updateActiveDropdown(tabId);
         
-        // Mettre à jour l'état
         state.currentActiveTab = tabId;
         state.isMenuVisible = true;
         
-        // Charger le menu correspondant à l'onglet
         loadTabMenu(tabId);
     }
 
-    // =========================
-    // Mise à jour du style de l'onglet actif
-    // =========================
     function updateActiveTab(activeTab) {
-        elements.tabs.forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('[role="tab"]').forEach(tab => {
+            tab.setAttribute('aria-selected', 'false');
+        });
+        activeTab.querySelector('[role="tab"]').setAttribute('aria-selected', 'true');
+        document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
         activeTab.classList.add('active');
     }
+    
+    function updateActiveDropdown(tabId) {
+        document.querySelectorAll('.tab').forEach(item => {
+            item.classList.remove('active');
+            if (item.getAttribute('data-tab') === tabId) {
+                item.classList.add('active');
+            }
+        });
+    }
 
-    // =========================
-    // Afficher ou masquer le menu
-    // =========================
     function toggleMenuVisibility() {
         state.isMenuVisible = !state.isMenuVisible;
         const menu = elements.menuContainer.querySelector('.menu');
         
         if (menu) {
-            menu.style.display = state.isMenuVisible ? 'block' : 'none';
+            menu.style.display = state.isMenuVisible ? 'grid' : 'none';
             if (state.isMenuVisible) {
                 animateMenu(menu);
             }
         }
     }
 
-    // =========================
-    // Animation d'apparition du menu
-    // =========================
     function animateMenu(menu) {
         menu.classList.add('fade-animation');
         setTimeout(() => {
@@ -114,65 +140,60 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // =========================
-    // Charger le menu pour un onglet donné
+    // Menu Generation
     // =========================
     function loadTabMenu(tabId) {
-        // Vider le menu existant
         elements.menuContainer.innerHTML = '';
         
-        // Créer un nouveau conteneur de menu
-        const menu = document.createElement('div');
-        menu.className = 'menu';
-        
-        // Générer et ajouter les éléments de menu
-        const itemCount = CONFIG.menuItems[tabId];
-        for (let i = 1; i <= itemCount; i++) {
-            const menuItem = createMenuItem(tabId.replace('tab', ''), i);
-            menu.appendChild(menuItem);
+        // Le menu sera affiché uniquement dans les dropdowns des tabs
+        updateDropdownMenu(tabId, CONFIG.menuItems[tabId]);
+    }
+    
+    function updateDropdownMenu(tabId, itemCount) {
+        const dropdown = document.querySelector(`.tab[data-tab="${tabId}"] .dropdown-menu`);
+        if (dropdown) {
+            dropdown.innerHTML = '';
+            
+            for (let i = 1; i <= itemCount; i++) {
+                const tabNumber = tabId.replace('tab', '');
+                const itemName = `Menu Item ${tabNumber}-${i}`;
+                const endpoint = `/api/menu/item${tabNumber}-${i}`;
+                
+                const li = document.createElement('li');
+                li.setAttribute('role', 'menuitem');
+                
+                const a = document.createElement('a');
+                a.href = '#';
+                a.textContent = itemName;
+                a.setAttribute('data-endpoint', endpoint);
+                a.setAttribute('tabindex', '0');
+                
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleMenuItemClick(a, itemName, endpoint);
+                    
+                    document.querySelectorAll('.dropdown-menu li').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    li.classList.add('active');
+                });
+                
+                li.appendChild(a);
+                dropdown.appendChild(li);
+            }
         }
-        
-        // Ajouter le menu au conteneur
-        elements.menuContainer.appendChild(menu);
     }
 
     // =========================
-    // Créer un bouton pour un élément de menu
-    // =========================
-    function createMenuItem(tabNumber, itemNumber) {
-        const itemName = `Menu Item ${tabNumber}-${itemNumber}`;
-        const endpoint = `/api/menu/item${tabNumber}-${itemNumber}`;
-        
-        const button = document.createElement('button');
-        button.className = 'menu-button';
-        button.textContent = itemName;
-        button.setAttribute('data-endpoint', endpoint);
-        
-        // Gestion du clic sur un élément de menu
-        button.addEventListener('click', (e) => {
-            e.stopPropagation();
-            handleMenuItemClick(button, itemName, endpoint);
-        });
-        
-        return button;
-    }
-
-    // =========================
-    // Gestion du clic sur un élément de menu
+    // Menu Item Handling
     // =========================
     function handleMenuItemClick(button, itemName, endpoint) {
-        // Mettre à jour le style du bouton actif
         updateActiveButton(button);
-        
-        // Afficher l'appel API
         showApiCallStatus(itemName, endpoint);
-        
-        // Simuler l'appel API
         simulateAPICall(itemName, endpoint);
     }
 
-    // =========================
-    // Mettre à jour le style du bouton actif
-    // =========================
     function updateActiveButton(activeButton) {
         document.querySelectorAll('.menu-button').forEach(btn => {
             btn.classList.remove('active-button');
@@ -180,9 +201,6 @@ document.addEventListener('DOMContentLoaded', function() {
         activeButton.classList.add('active-button');
     }
 
-    // =========================
-    // Afficher le statut de l'appel API
-    // =========================
     function showApiCallStatus(itemName, endpoint) {
         elements.menuItemName.textContent = itemName;
         elements.endpoint.textContent = endpoint;
@@ -190,29 +208,39 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // =========================
-    // Simuler un appel API (avec délai)
+    // API Simulation
     // =========================
     function simulateAPICall(itemName, endpoint) {
-        // Afficher l'état de chargement
         elements.apiDisplay.innerHTML = `
             Calling endpoint: <code>${endpoint}</code>
             <span class="loading">(loading...)</span>
         `;
         
-        // Simuler un délai réseau
+        const shouldFail = Math.random() < CONFIG.errorRate;
+        
         setTimeout(() => {
-            elements.apiDisplay.innerHTML = `
-                API called: <span>${itemName}</span>
-                <br>Endpoint: <code>${endpoint}</code>
-                <div class="api-status">
-                    Status: Success! (${CONFIG.simulatedDelay}ms simulated delay)
-                </div>
-            `;
+            if (shouldFail) {
+                elements.apiDisplay.innerHTML = `
+                    API call failed: <span>${itemName}</span>
+                    <br>Endpoint: <code>${endpoint}</code>
+                    <div class="api-status error">
+                        Status: Error! (${CONFIG.simulatedDelay}ms simulated delay)
+                    </div>
+                `;
+            } else {
+                elements.apiDisplay.innerHTML = `
+                    API called: <span>${itemName}</span>
+                    <br>Endpoint: <code>${endpoint}</code>
+                    <div class="api-status success">
+                        Status: Success! (${CONFIG.simulatedDelay}ms simulated delay)
+                    </div>
+                `;
+            }
         }, CONFIG.simulatedDelay);
     }
 
     // =========================
-    // Lancer l'application
+    // Initialize Application
     // =========================
     init();
 });

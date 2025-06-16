@@ -1,13 +1,12 @@
-/* =========================
-   Définition des variables CSS globales
-   ========================= */
 :root {
-    /* Couleurs principales */
-    --primary-color: #006983;
-    --primary-dark: #195596;
-    --primary-light: #00aec1;
+    /* Color Variables */
+    --primary-color: #005a70;
+    --primary-dark: #003d4f;
+    --primary-light: #0088a8;
+    --error-color: #d1242f;
+    --success-color: #2ea043;
     
-    /* Couleurs de fond */
+    /* Background Colors */
     --bg-light: #f5f5f5;
     --bg-white: #ffffff;
     --bg-gray: #f1f1f1;
@@ -15,24 +14,29 @@
     --bg-code: #006983;
     --bg-active: #e6f7ff;
     
-    /* Couleurs de texte */
-    --text-dark: #333;
-    --text-light: white;
+    /* Text Colors */
+    --text-dark: #222222;
+    --text-light: #ffffff;
     --text-black: #000000;
-    --text-gray: #888;
+    --text-gray: #666666;
     
-    /* Couleurs de bordure */
+    /* Borders */
     --border-light: #ddd;
     --border-dark: #1a252f;
     
-    /* Couleurs d'ombre */
+    /* Shadows */
     --shadow-light: rgba(0, 0, 0, 0.05);
     --shadow-medium: rgba(0, 0, 0, 0.1);
+    
+    /* Focus Styles */
+    --focus-outline: 2px solid var(--primary-light);
+    --focus-outline-offset: 2px;
+    
+    /* Animation */
+    --animation-duration: 0.3s;
+    --animation-easing: ease;
 }
 
-/* =========================
-   Styles de base du body
-   ========================= */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
@@ -40,38 +44,27 @@ body {
     margin: 0;
     padding: 0;
     background-color: var(--bg-light);
-    margin-bottom: 120px;
-    /*overflow-y: hidden;  Masquer la barre de défilement verticale 
-    overflow-x: hidden; /* Masquer la barre de défilement horizontale */
 }
 
-/* =========================
-   Styles du header principal
-   ========================= */
 .main-header {
     background-color: var(--primary-color);
     color: var(--text-light);
     padding: 20px 0;
-    margin-bottom: 30px;
+    margin-bottom: 2px;
     box-shadow: 0 2px 10px var(--shadow-medium);
 }
 
 .header-content {
     max-width: 1200px;
-    margin: auto;
+    /* margin: auto; */
     padding: 0 20px;
     display: flex;
     align-items: center;
-    position: relative;
 }
 
 .header-content .logo img {
-    /* position: fixed;
-    top: 10px;
-    left: 10px; */
     height: 7rem;
-    margin-right: 20px; /* Espacement à droite du logo */
-    height: 7rem;
+    margin-right: 20px;
 }
 
 .header-text {
@@ -79,7 +72,7 @@ body {
     flex-grow: 1;
 }
 
-.header-text h2 {
+.header-text h1 {
     margin: 0;
     font-size: 2.2rem;
 }
@@ -90,121 +83,143 @@ body {
     opacity: 0.9;
 }
 
-/* =========================
-   Styles du conteneur principal et des onglets
-   ========================= */
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: var(--animation-duration);
+    /* margin: 0 auto; */
     padding: 0 20px 20px;
     min-height: calc(100vh - 200px);
 }
 
-.tabs {
+.tabs #menu {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
     display: flex;
-    gap: 5px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid var(--border-light);
+    background: var(--primary-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px var(--shadow-medium);
 }
 
-.tab {
-    padding: 12px 24px;
+.tabs #menu > li {
+    position: relative;
+    width: -webkit-fill-available;
+    padding: 12px 15px;
+    background-color: var(--primary-dark);
+    background-image: linear-gradient(
+        var(--primary-light), 
+        var(--primary-color) 50%, 
+        var(--primary-dark) 50%, 
+        var(--primary-light)
+    );
     cursor: pointer;
-    background-color: var(--bg-gray);
-    border: 1px solid var(--border-light);
-    border-bottom: none;
-    border-radius: 5px 5px 0 0;
-    transition: all 0.3s ease;
-    font-size: 1rem;
-    font-weight: 600;
+    text-align: center;
+    color: white;
+    transition: all var(--animation-duration) var(--animation-easing);
 }
 
-.tab.active {
+.tabs #menu > li a {
+    display: block;
+    color: var(--text-light);
+    text-decoration: none;
+}
+
+.tabs #menu > li:hover,
+.tabs #menu > li:focus-within {
+    background-color: var(--primary-light);
+    background-image: linear-gradient(
+        var(--primary-light), 
+        var(--primary-color) 50%, 
+        var(--primary-dark) 50%, 
+        var(--primary-light)
+    );
+}
+
+.tabs #menu > li:first-child {
+    border-radius: 8px 0 0 8px;
+}
+
+.tabs #menu > li:last-child {
+    border-radius: 0 8px 8px 0;
+}
+
+.tabs #menu ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 0;
+    margin: 0;
+    padding: 0;
     background-color: var(--bg-white);
-    border-bottom: 1px solid var(--bg-white);
-    margin-bottom: -1px;
-    color: var(--primary-color);
+    overflow: hidden;
+    transition: max-height var(--animation-duration) var(--animation-easing);
+    box-shadow: 0 2px 5px var(--shadow-medium);
+    border-radius: 0 0 5px 5px;
+    z-index: 100;
 }
 
-.tab:hover:not(.active) {
+.tabs #menu > li:hover ul,
+.tabs #menu > li:focus-within ul {
+    max-height: 500px;
+    border: 1px solid var(--border-light);
+    border-top: none;
+}
+
+.tabs #menu ul li {
+    padding: 10px;
+    color: var(--text-dark);
+    border-bottom: 1px solid var(--border-light);
+    transition: all 0.2s ease;
+}
+
+.tabs #menu ul li:hover {
     background-color: var(--bg-hover);
 }
 
-/* =========================
-   Styles du conteneur du menu
-   ========================= */
+.tabs #menu ul li a {
+    color: var(--text-dark);
+}
+
 .menu-container {
-    /* border: 1px solid var(--border-light); */
-    border-top: none;
-    border-radius: 0 0 5px 5px;
-    /* background-color: var(--bg-white); */
-    min-height: 200px;
-    padding: 10px;
-    position: relative;
-}
-
-/* =========================
-   Styles des boutons de menu
-   ========================= */
-.menu {
-    display: block;
-    transition: all 0.3s ease;
-}
-
-.menu.fade-animation {
-    animation: fadeIn 0.3s ease;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
 }
 
 .menu-button {
-    padding: 15px 20px;
+    padding: 12px 15px;
     background-color: var(--bg-white);
-    border-radius: 6px;
-    box-shadow: 0 2px 5px var(--shadow-light);
+    border: 1px solid var(--border-light);
+    border-left: 4px solid var(--primary-color);
+    border-radius: 4px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
     text-align: left;
-    font-size: 1rem;
-    color: var(--text-dark);
-    position: relative;
-    border-left: 4px solid transparent;
-    display: flex;
-    align-items: center;
-    margin: 5px 0;
-    width: 100%;
+    transition: all var(--animation-duration) var(--animation-easing);
 }
 
 .menu-button:hover {
     background-color: var(--bg-hover);
-    box-shadow: 0 4px 8px var(--shadow-medium);
-    transform: translateY(-2px);
-    border-left-color: var(--primary-dark);
 }
 
-.menu-button::before {
-    content: "→";
-    margin-right: 12px;
-    color: var(--primary-dark);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+.menu-button:focus {
+    outline: var(--focus-outline);
+    outline-offset: var(--focus-outline-offset);
 }
 
-.menu-button:hover::before {
-    opacity: 1;
+.active-button {
+    background-color: var(--bg-active) !important;
+    border-left-color: var(--primary-color) !important;
+    font-weight: bold;
 }
 
-/* =========================
-   Affichage de l'endpoint API
-   ========================= */
 .api-endpoint {
     position: fixed;
     bottom: 100px;
     left: 30px;
-    /* right: 80px; */
     padding: 12px 15px;
     background-color: var(--primary-light);
     border-left: 4px solid var(--primary-dark);
-    display: none;
+    color: var(--text-light);
 }
 
 .api-endpoint code {
@@ -214,9 +229,6 @@ body {
     font-family: monospace;
 }
 
-/* =========================
-   Styles du pied de page
-   ========================= */
 .api-footer {
     position: fixed;
     bottom: 0;
@@ -231,7 +243,11 @@ body {
 .footer-credits {
     text-align: center;
     font-size: 0.9rem;
-    opacity: 0.8;
+}
+
+.footer-credits h2 {
+    margin: 0;
+    font-size: 1.1rem;
 }
 
 .footer-credits span {
@@ -239,48 +255,48 @@ body {
     color: var(--text-black);
 }
 
-/* =========================
-   Animation pour le menu
-   ========================= */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* =========================
-   Styles pour les messages de statut
-   ========================= */
-.loading {
-    color: var(--text-black);
-    font-style: italic;
-}
-
 .api-status {
     margin-top: 8px;
-    padding: 4px;
-    background-color: var(--bg-hover);
-    border-radius: 3px;
+    padding: 8px;
+    border-radius: 4px;
     font-size: 0.9em;
 }
 
-.active-button {
-    background-color: var(--bg-active) !important;
-    border-left-color: var(--primary-color) !important;
-    font-weight: bold;
+.api-status.success {
+    background-color: #e6ffed;
+    color: var(--success-color);
+    border-left: 4px solid var(--success-color);
 }
 
-/* =========================
-   Responsive Design pour mobile/tablette
-   ========================= */
+.api-status.error {
+    background-color: #ffebe9;
+    color: var(--error-color);
+    border-left: 4px solid var(--error-color);
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(-10px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+.fade-animation {
+    animation: fadeIn var(--animation-duration) var(--animation-easing);
+}
+
 @media (max-width: 768px) {
-    .tabs {
+    .tabs #menu {
         flex-wrap: wrap;
     }
     
-    .tab {
+    .tabs #menu > li {
         flex: 1 1 100%;
         border-radius: 0;
-        border: 1px solid var(--border-light);
         margin-bottom: 5px;
     }
     
@@ -292,5 +308,43 @@ body {
         left: 10px;
         right: 10px;
         bottom: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .header-content .logo img {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    
+    #menu {
+        flex-direction: column;
+    }
+    
+    #menu > li {
+        width: 100%;
+        border-radius: 0 !important;
+    }
+    
+    .menu-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media print {
+    .main-header, .api-footer, .api-endpoint {
+        display: none;
+    }
+    
+    body {
+        background-color: white;
+        color: black;
+        margin: 0;
+        padding: 0;
     }
 }
