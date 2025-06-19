@@ -1,12 +1,15 @@
+/* ===========================
+   Variables CSS globales
+   =========================== */
 :root {
-    /* Color Variables */
+    /* Couleurs principales */
     --primary-color: #005a70;
     --primary-dark: #003d4f;
     --primary-light: #0088a8;
     --error-color: #d1242f;
     --success-color: #2ea043;
     
-    /* Background Colors */
+    /* Couleurs de fond */
     --bg-light: #f5f5f5;
     --bg-white: #ffffff;
     --bg-gray: #f1f1f1;
@@ -14,21 +17,21 @@
     --bg-code: #006983;
     --bg-active: #e6f7ff;
     
-    /* Text Colors */
+    /* Couleurs de texte */
     --text-dark: #222222;
     --text-light: #ffffff;
     --text-black: #000000;
     --text-gray: #666666;
     
-    /* Borders */
+    /* Bordures */
     --border-light: #ddd;
     --border-dark: #1a252f;
     
-    /* Shadows */
+    /* Ombres */
     --shadow-light: rgba(0, 0, 0, 0.05);
     --shadow-medium: rgba(0, 0, 0, 0.1);
     
-    /* Focus Styles */
+    /* Styles de focus */
     --focus-outline: 2px solid var(--primary-light);
     --focus-outline-offset: 2px;
     
@@ -37,6 +40,9 @@
     --animation-easing: ease;
 }
 
+/* ===========================
+   Style général du body
+   =========================== */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
@@ -46,6 +52,9 @@ body {
     background-color: var(--bg-light);
 }
 
+/* ===========================
+   En-tête principal
+   =========================== */
 .main-header {
     background-color: var(--primary-color);
     color: var(--text-light);
@@ -56,6 +65,7 @@ body {
 
 .header-content {
     max-width: 1200px;
+    /* Centrage horizontal possible */
     /* margin: auto; */
     padding: 0 20px;
     display: flex;
@@ -83,13 +93,19 @@ body {
     opacity: 0.9;
 }
 
+/* ===========================
+   Conteneur principal
+   =========================== */
 .container {
-    max-width: var(--animation-duration);
+    max-width: var(--animation-duration); /* Erreur probable : à remplacer par une valeur en px/rem */
     /* margin: 0 auto; */
     padding: 0 20px 20px;
     min-height: calc(100vh - 200px);
 }
 
+/* ===========================
+   Menu à onglets
+   =========================== */
 .tabs #menu {
     list-style: none;
     padding: 0;
@@ -123,6 +139,7 @@ body {
     text-decoration: none;
 }
 
+/* Effet au survol/focus sur les onglets */
 .tabs #menu > li:hover,
 .tabs #menu > li:focus-within {
     background-color: var(--primary-light);
@@ -134,6 +151,7 @@ body {
     );
 }
 
+/* Coins arrondis pour le premier et dernier onglet */
 .tabs #menu > li:first-child {
     border-radius: 8px 0 0 8px;
 }
@@ -142,6 +160,9 @@ body {
     border-radius: 0 8px 8px 0;
 }
 
+/* ===========================
+   Sous-menus déroulants
+   =========================== */
 .tabs #menu ul {
     position: absolute;
     top: 100%;
@@ -158,6 +179,7 @@ body {
     z-index: 100;
 }
 
+/* Affichage du sous-menu au survol/focus */
 .tabs #menu > li:hover ul,
 .tabs #menu > li:focus-within ul {
     max-height: 500px;
@@ -180,12 +202,18 @@ body {
     color: var(--text-dark);
 }
 
+/* ===========================
+   Contenu dynamique du menu
+   =========================== */
 .menu-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 15px;
 }
 
+/* ===========================
+   Boutons du menu
+   =========================== */
 .menu-button {
     padding: 12px 15px;
     background-color: var(--bg-white);
@@ -206,12 +234,16 @@ body {
     outline-offset: var(--focus-outline-offset);
 }
 
+/* Bouton actif */
 .active-button {
     background-color: var(--bg-active) !important;
     border-left-color: var(--primary-color) !important;
     font-weight: bold;
 }
 
+/* ===========================
+   Affichage de l'endpoint API
+   =========================== */
 .api-endpoint {
     position: fixed;
     bottom: 100px;
@@ -229,6 +261,9 @@ body {
     font-family: monospace;
 }
 
+/* ===========================
+   Pied de page
+   =========================== */
 .api-footer {
     position: fixed;
     bottom: 0;
@@ -255,6 +290,9 @@ body {
     color: var(--text-black);
 }
 
+/* ===========================
+   Statut de l'API (succès/erreur)
+   =========================== */
 .api-status {
     margin-top: 8px;
     padding: 8px;
@@ -274,6 +312,9 @@ body {
     border-left: 4px solid var(--error-color);
 }
 
+/* ===========================
+   Animation d'apparition
+   =========================== */
 @keyframes fadeIn {
     from { 
         opacity: 0; 
@@ -289,6 +330,9 @@ body {
     animation: fadeIn var(--animation-duration) var(--animation-easing);
 }
 
+/* ===========================
+   Responsive : Tablettes
+   =========================== */
 @media (max-width: 768px) {
     .tabs #menu {
         flex-wrap: wrap;
@@ -311,6 +355,9 @@ body {
     }
 }
 
+/* ===========================
+   Responsive : Mobiles
+   =========================== */
 @media (max-width: 480px) {
     .header-content {
         flex-direction: column;
@@ -336,6 +383,9 @@ body {
     }
 }
 
+/* ===========================
+   Impression : Masquer certains éléments
+   =========================== */
 @media print {
     .main-header, .api-footer, .api-endpoint {
         display: none;
