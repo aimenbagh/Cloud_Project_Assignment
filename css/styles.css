@@ -118,6 +118,7 @@ body {
 
 .tabs #menu > li {
     position: relative;
+    border: 1px solid #ddd;
     width: -webkit-fill-available;
     padding: 12px 15px;
     background-color: var(--primary-dark);
