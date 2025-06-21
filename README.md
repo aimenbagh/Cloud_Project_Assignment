@@ -20,6 +20,8 @@ A responsive tabbed menu web application that simulates REST API calls when menu
     - [Build Image](#build-image)
     - [Run Image](#run-image)
   - [Installation](#installation)
+    - [Clone the repository ](#clone-the-repository-)
+    - [Navigate to project directory](#navigate-to-project-directory)
   - [Usage](#usage)
   - [Authors](#authors)
 
@@ -107,9 +109,9 @@ docker run --name myproject -d -p 80:80 project:1.0
 ## Installation
 
 ```bash ``` <br/>
-1. Clone the repository <br/> 
+### Clone the repository <br/> 
 git clone https://github.com/aimenbagh/Cloud_Project_Assignment.git <br/>
-2. Navigate to project directory<br/> 
+### Navigate to project directory<br/> 
 cd Cloud_Project_Assignment  
 
 ## Usage
