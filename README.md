@@ -2,6 +2,9 @@
 
 A responsive tabbed menu web application that simulates REST API calls when menu items are clicked. This project was created as part of a midterm assignment for the Higher Institute of Science.
 
+Dockerhub: ![Docker Image Version](https://img.shields.io/docker/v/baghdadinadjib/cloud_project_assignment?link=https%3A%2F%2Fhub.docker.com%2Fr%2Fbaghdadinadjib%2Fcloud_project_assignment)
+
+
 ## Table of Contents
 
 - [Tabbed Menu Web Application](#tabbed-menu-web-application)
@@ -101,6 +104,9 @@ sudo service apache2 start
 Navigate to http://localhost in your browser.
 
 ## Docker Deployment
+
+Dockerhub: ![Docker Image Version](https://img.shields.io/docker/v/baghdadinadjib/cloud_project_assignment?link=https%3A%2F%2Fhub.docker.com%2Fr%2Fbaghdadinadjib%2Fcloud_project_assignment)
+
 
 ### Build Image
 ```docker build -t project:1.0 .```
