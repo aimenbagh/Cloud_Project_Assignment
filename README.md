@@ -15,7 +15,7 @@ A responsive tabbed menu web application that simulates REST API calls when menu
     - [Install httpd and start it.](#install-httpd-and-start-it)
     - [Add current user to www-data group.](#add-current-user-to-www-data-group)
     - [Copy projet files to `/var/www`.](#copy-projet-files-to-varwww)
-    - [Open http://localhost in browser.](#open-httplocalhost-in-browser)
+    - [Access the project](#access-the-project)
   - [Docker Deployment](#docker-deployment)
     - [Build Image](#build-image)
     - [Run Image](#run-image)
@@ -84,34 +84,36 @@ Cloud_Project_Assignment/ <br/>
 
 ## Running the Application with Apache httpd
 ### Install httpd and start it.
-```bash ``` <br/>
-sudo apt update
+```bash
+sudo apt update 
 sudo apt install apache2
 sudo service apache2 start
-
+```
 ### Add current user to www-data group.
-sudo usermod -a -G www-data username
-sudo chown -R username:username /var/www
+``` sudo usermod -a -G www-data username ```
+
+``` sudo chown -R username:username /var/www ```
 
 ### Copy projet files to `/var/www`.
 
-### Open http://localhost in browser.
+### Access the project
+
+Navigate to http://localhost in your browser.
 
 ## Docker Deployment
 
 ### Build Image
-docker build -t project:1.0 .
+```docker build -t project:1.0 .```
 
 ### Run Image
-docker run --name myproject -d -p 80:80 project:1.0
+```docker run --name myproject -d -p 80:80 project:1.0```
 
 ## Installation
 
-```bash ``` <br/>
 ### Clone the repository <br/> 
-git clone https://github.com/aimenbagh/Cloud_Project_Assignment.git <br/>
+```git clone https://github.com/aimenbagh/Cloud_Project_Assignment.git ```<br/>
 ### Navigate to project directory<br/> 
-cd Cloud_Project_Assignment  
+```cd Cloud_Project_Assignment```  
 
 ## Usage
 
