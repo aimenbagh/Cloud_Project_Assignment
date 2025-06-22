@@ -1,21 +1,24 @@
-# Utilise l'image de base Ubuntu
-FROM ubuntu 
+# Use the Ubuntu Apache base image
+FROM ubuntu/apache2:latest
 
-# Met à jour la liste des paquets
+# Update the package list
 RUN apt update 
 
-# Installe Apache2 (attention : le tiret devant -y doit être standard)
+# Install Apache2 (make sure the dash before -y is standard)
 RUN apt -y install apache2 
 # RUN apt install –y apache2-utils 
 
-# Nettoie le cache des paquets pour réduire la taille de l'image
+# Clean the package cache to reduce image size
 RUN apt clean
 
-# Copie le contenu du projet dans le dossier web d'Apache avec les bons droits
+# Remove the default Apache index page
+RUN rm -rf /var/www/html/*
+
+# Copy the project content into the Apache web folder with correct permissions
 COPY --chown=www-data:www-data . /var/www/html
 
-# Expose le port 80 pour le serveur web
+# Expose port 80 for the web server
 EXPOSE 80
 
-# Lance Apache en mode premier plan
+# Start Apache in foreground mode
 CMD ["apache2ctl", "-D", "FOREGROUND"]

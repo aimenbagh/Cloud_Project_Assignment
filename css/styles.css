@@ -1,15 +1,15 @@
 /* ===========================
-   Variables CSS globales
+   Global CSS variables
    =========================== */
 :root {
-    /* Couleurs principales */
+    /* Main colors */
     --primary-color: #005a70;
     --primary-dark: #003d4f;
     --primary-light: #0088a8;
     --error-color: #d1242f;
     --success-color: #2ea043;
     
-    /* Couleurs de fond */
+    /* Background colors */
     --bg-light: #f5f5f5;
     --bg-white: #ffffff;
     --bg-gray: #f1f1f1;
@@ -17,21 +17,21 @@
     --bg-code: #006983;
     --bg-active: #e6f7ff;
     
-    /* Couleurs de texte */
+    /* Text colors */
     --text-dark: #222222;
     --text-light: #ffffff;
     --text-black: #000000;
     --text-gray: #666666;
     
-    /* Bordures */
+    /* Borders */
     --border-light: #ddd;
     --border-dark: #1a252f;
     
-    /* Ombres */
+    /* Shadows */
     --shadow-light: rgba(0, 0, 0, 0.05);
     --shadow-medium: rgba(0, 0, 0, 0.1);
     
-    /* Styles de focus */
+    /* Focus styles */
     --focus-outline: 2px solid var(--primary-light);
     --focus-outline-offset: 2px;
     
@@ -41,7 +41,7 @@
 }
 
 /* ===========================
-   Style général du body
+   General body style
    =========================== */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -53,7 +53,7 @@ body {
 }
 
 /* ===========================
-   En-tête principal
+   Main header
    =========================== */
 .main-header {
     background-color: var(--primary-color);
@@ -64,7 +64,7 @@ body {
 
 .header-content {
     max-width: 1200px;
-    /* Centrage horizontal possible */
+    /* Optional: horizontal centering */
     /* margin: auto; */
     padding: 0 20px;
     display: flex;
@@ -93,19 +93,20 @@ body {
 }
 
 /* ===========================
-   Conteneur principal
+   Main container
    =========================== */
 .container {
     background: #f7f7f7 url("../img/bag.jpg") no-repeat center center fixed;
     background-size: cover;
-    max-width: var(--animation-duration); /* Erreur probable : à remplacer par une valeur en px/rem */
+    max-width: var(--animation-duration); /* Likely error: should be replaced with a px/rem value */
     /* margin: 0 auto; */
+    /* Optional: padding for the main container (uncomment if you want extra spacing at the bottom) */
     /* padding: 0 20px 20px; */
     min-height: calc(100vh - 200px);
 }
 
 /* ===========================
-   Menu à onglets
+   Tabbed menu
    =========================== */
 .tabs #menu {
     list-style: none;
@@ -141,7 +142,7 @@ body {
     text-decoration: none;
 }
 
-/* Effet au survol/focus sur les onglets */
+/* Hover/focus effect on tabs */
 .tabs #menu > li:hover,
 .tabs #menu > li:focus-within {
     background-color: var(--primary-light);
@@ -153,7 +154,7 @@ body {
     );
 }
 
-/* Coins arrondis pour le premier et dernier onglet */
+/* Rounded corners for first and last tab */
 .tabs #menu > li:first-child {
     border-radius: 8px 0 0 8px;
 }
@@ -163,7 +164,7 @@ body {
 }
 
 /* ===========================
-   Sous-menus déroulants
+   Dropdown submenus
    =========================== */
 .tabs #menu ul {
     position: absolute;
@@ -181,7 +182,7 @@ body {
     z-index: 100;
 }
 
-/* Affichage du sous-menu au survol/focus */
+/* Show submenu on hover/focus */
 .tabs #menu > li:hover ul,
 .tabs #menu > li:focus-within ul {
     max-height: 500px;
@@ -205,7 +206,7 @@ body {
 }
 
 /* ===========================
-   Contenu dynamique du menu
+   Dynamic menu content
    =========================== */
 .menu-container {
     display: grid;
@@ -214,7 +215,7 @@ body {
 }
 
 /* ===========================
-   Boutons du menu
+   Menu buttons
    =========================== */
 .menu-button {
     padding: 12px 15px;
@@ -236,7 +237,7 @@ body {
     outline-offset: var(--focus-outline-offset);
 }
 
-/* Bouton actif */
+/* Active button */
 .active-button {
     background-color: var(--bg-active) !important;
     border-left-color: var(--primary-color) !important;
@@ -244,7 +245,7 @@ body {
 }
 
 /* ===========================
-   Affichage de l'endpoint API
+   API endpoint display
    =========================== */
 .api-endpoint {
     position: fixed;
@@ -264,7 +265,7 @@ body {
 }
 
 /* ===========================
-   Pied de page
+   Footer
    =========================== */
 .api-footer {
     position: fixed;
@@ -293,7 +294,7 @@ body {
 }
 
 /* ===========================
-   Statut de l'API (succès/erreur)
+   API status (success/error)
    =========================== */
 .api-status {
     margin-top: 8px;
@@ -315,7 +316,7 @@ body {
 }
 
 /* ===========================
-   Animation d'apparition
+   Fade-in animation
    =========================== */
 @keyframes fadeIn {
     from { 
@@ -333,7 +334,7 @@ body {
 }
 
 /* ===========================
-   Responsive : Tablettes
+   Responsive: Tablets
    =========================== */
 @media (max-width: 768px) {
     .tabs #menu {
@@ -358,7 +359,7 @@ body {
 }
 
 /* ===========================
-   Responsive : Mobiles
+   Responsive: Mobiles
    =========================== */
 @media (max-width: 480px) {
     .header-content {
@@ -386,7 +387,7 @@ body {
 }
 
 /* ===========================
-   Impression : Masquer certains éléments
+   Print: Hide some elements
    =========================== */
 @media print {
     .main-header, .api-footer, .api-endpoint {

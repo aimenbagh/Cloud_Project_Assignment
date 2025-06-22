@@ -2,19 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Définit la compatibilité mobile et l'encodage -->
+    <!-- Sets mobile compatibility and encoding -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabbed Menu Application</title>
-    <!-- Lien vers la feuille de style principale -->
+    <!-- Link to main stylesheet -->
     <link rel="stylesheet" href="css/styles.css">
-    <!-- Favicon du site -->
+    <!-- Website favicon -->
     <link rel="shortcut icon" href="img/logo-his1.png">
 </head>
 <body>
-    <!-- En-tête principal du site -->
+    <!-- Main site header -->
     <header class="main-header">
         <div class="header-content">
-            <!-- Logo de l'institut -->
+            <!-- Institute logo -->
             <a href="#" class="logo">
                 <img src="img/logo-his.png" alt="Institute Logo">
             </a>
@@ -26,53 +26,53 @@
     </header>
 
     <div class="container">
-        <!-- Menu à onglets principal -->
+        <!-- Main tabbed menu -->
         <div class="tabs">
             <ul id="menu" role="tablist">
-                <!-- Onglet 1 -->
+                <!-- Tab 1 -->
                 <li data-tab="tab1" class="tab" role="presentation">
                     <a href="#" role="tab" aria-selected="false" aria-controls="tab1-content">Tab-1</a>
-                    <!-- Sous-menu déroulant pour l'onglet 1 -->
+                    <!-- Dropdown submenu for Tab 1 -->
                     <ul class="dropdown-menu" role="menu"></ul>
                 </li>
-                <!-- Onglet 2 -->
+                <!-- Tab 2 -->
                 <li data-tab="tab2" class="tab" role="presentation">
                     <a href="#" role="tab" aria-selected="false" aria-controls="tab2-content">Tab-2</a>
-                    <!-- Sous-menu déroulant pour l'onglet 2 -->
+                    <!-- Dropdown submenu for Tab 2 -->
                     <ul class="dropdown-menu" role="menu"></ul>
                 </li>
-                <!-- Onglet 3 -->
+                <!-- Tab 3 -->
                 <li data-tab="tab3" class="tab" role="presentation">
                     <a href="#" role="tab" aria-selected="false" aria-controls="tab3-content">Tab-3</a>
-                    <!-- Sous-menu déroulant pour l'onglet 3 -->
+                    <!-- Dropdown submenu for Tab 3 -->
                     <ul class="dropdown-menu" role="menu"></ul>
                 </li>
-                <!-- Onglet 4 -->
+                <!-- Tab 4 -->
                 <li data-tab="tab4" class="tab" role="presentation">
                     <a href="#" role="tab" aria-selected="false" aria-controls="tab4-content">Tab-4</a>
-                    <!-- Sous-menu déroulant pour l'onglet 4 -->
+                    <!-- Dropdown submenu for Tab 4 -->
                     <ul class="dropdown-menu" role="menu"></ul>
                 </li>
             </ul>
         </div>
         
-        <!-- Conteneur pour afficher le contenu du menu sélectionné -->
+        <!-- Container to display the selected menu content -->
         <div id="menu-container" class="menu-container" role="tabpanel"></div>
     </div>
 
-    <!-- Affichage dynamique de l'endpoint API appelé -->
+    <!-- Dynamic display of the called API endpoint -->
     <div id="api-endpoint" class="api-endpoint" aria-live="polite">
         The REST API endpoint for menu item <span id="menu-item-name"></span> is called <code id="endpoint"></code>
     </div>
 
-    <!-- Pied de page avec les crédits -->
+    <!-- Footer with credits -->
     <footer class="api-footer">
         <div class="footer-credits">
             <h2>Created by <span>Baghdadi Nadjib Aimen</span> && <span>Elouchdi Imene Maria</span></h2>
         </div>
     </footer>
 
-    <!-- Inclusion du script JavaScript principal -->
+    <!-- Main JavaScript script inclusion -->
     <script src="js/script.js"></script>
 </body>
 </html>
