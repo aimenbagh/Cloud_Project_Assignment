@@ -114,6 +114,13 @@ Dockerhub: [![Docker Image Version](https://img.shields.io/docker/v/baghdadinadj
 ### Run Image
 ```docker run --name myproject -d -p 80:80 project:1.0```
 
+## Docker deployement
+
+### login in Docker hub
+``` docker login```  
+### Docker Push
+```docker push baghdadinadjib/cloud_project```
+
 ## Installation
 
 ### Clone the repository <br/> 
