@@ -124,7 +124,7 @@ Dockerhub: [![Docker Image Version](https://img.shields.io/docker/v/baghdadinadj
 ## Installation
 
 ### Clone the conteriner
-```docker push baghdadinadjib/project_cloud```
+```sudo docker pull baghdadinadjib/project_cloud```
 
 ### Clone the repository <br/> 
 ```git clone https://github.com/aimenbagh/Cloud_Project_Assignment.git ```<br/>
